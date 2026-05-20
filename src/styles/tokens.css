@@ -1,0 +1,142 @@
+/* MontserrartArm — same family files as Tilda project stylesheet */
+@font-face {
+  font-family: MontserrartArm;
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://static.tildacdn.one/tild3230-3664-4264-b135-363339303031/Montserratarm-Thin.woff')
+    format('woff');
+}
+
+@font-face {
+  font-family: MontserrartArm;
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://static.tildacdn.one/tild3632-3966-4362-a135-663936343561/Montserratarm-ExtraL.woff')
+    format('woff');
+}
+
+@font-face {
+  font-family: MontserrartArm;
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://static.tildacdn.one/tild3462-6665-4663-b233-633332613337/Montserratarm-Light.woff')
+    format('woff');
+}
+
+@font-face {
+  font-family: MontserrartArm;
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://static.tildacdn.one/tild3461-3738-4533-b066-663039663538/Montserratarm-Regula.woff')
+    format('woff');
+}
+
+@font-face {
+  font-family: MontserrartArm;
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://static.tildacdn.one/tild3061-6630-4836-a530-626166616465/Montserratarm-Medium.woff')
+    format('woff');
+}
+
+@font-face {
+  font-family: MontserrartArm;
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://static.tildacdn.one/tild3164-3939-4261-b762-623163363634/Montserratarm-SemiBo.woff')
+    format('woff');
+}
+
+@font-face {
+  font-family: MontserrartArm;
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://static.tildacdn.one/tild3237-3763-4730-b334-663038656362/Montserratarm-Bold.woff')
+    format('woff');
+}
+
+/* Armenian brush script — polaroid names (belleame Tilda project) */
+@font-face {
+  font-family: Vrdznagir;
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://static.tildacdn.one/tild3536-6462-4937-b865-663761336538/Vrdznagir.woff')
+    format('woff');
+}
+
+/* SHK Aida — polaroid date / delicate serif numerals */
+@font-face {
+  font-family: Aida;
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://static.tildacdn.one/tild6539-3337-4335-a566-363037373230/SHKAida-Light.woff')
+    format('woff');
+}
+
+@font-face {
+  font-family: Aida;
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://static.tildacdn.one/tild6633-6637-4333-a163-323437336538/SHK_Aida_1.woff')
+    format('woff');
+}
+
+:root {
+  --color-bg: #f2efec;
+  --color-text: #211f1b;
+  --color-text-muted: #252222;
+  --color-text-soft: #000000;
+  --color-accent: #b8a897;
+  --color-accent-heading: #b2bfde;
+  --color-button-text: #131212;
+  --color-input-border: #211f1b;
+  --color-calendar-heart: #d4c4b8;
+  --grid-max: 1200px;
+  --photo-radius: 8px;
+  --timeline-marker-size: 58px;
+  --timeline-line-color: #b8a897;
+  /* Tilda-like horizontal rhythm: tight on phones, room on desktop */
+  --page-gutter: clamp(16px, 4.2vw, 48px);
+  /* RSVP form card (taupe / cream reference) */
+  --rsvp-taupe: #8b7d77;
+  --rsvp-taupe-muted: #a89892;
+  --rsvp-card-bg: #ffffff;
+  --rsvp-card-shadow: 0 10px 40px rgba(60, 48, 44, 0.1);
+  --rsvp-add-pill-bg: #ebe6e2;
+  --rsvp-submit-text: #ffffff;
+  --rsvp-guest-row-border: rgba(139, 125, 119, 0.32);
+  --font-base: MontserrartArm, Arial, sans-serif;
+  --font-script: Vrdznagir, cursive;
+  --font-caption: Aida, 'Times New Roman', serif;
+  /* Polaroid caption (reference: brush names + taupe serif date) */
+  --text-hero-names: clamp(32px, 8.4vw, 42px);
+  --text-hero-date: clamp(15px, 3.6vw, 19px);
+  --color-hero-date: var(--color-accent);
+  --text-hero-hint: 15px;
+  --text-body-lg: clamp(20px, 2.4vw, 24px);
+  --text-body: clamp(18px, 2vw, 22px);
+  --text-body-sm: clamp(17px, 1.8vw, 19px);
+  --text-btn: clamp(18px, 2vw, 22px);
+  --text-countdown-title: clamp(22px, 4vw, 25px);
+  --text-countdown-digits: clamp(28px, 7vw, 55px);
+  --text-countdown-units: 19px;
+  --leading-body: 1.55;
+  --leading-invite: 1.5;
+  --leading-hero-hint: 0.9;
+  --leading-display: 1.15;
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+}
