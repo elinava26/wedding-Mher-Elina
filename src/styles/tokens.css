@@ -119,17 +119,17 @@
   --font-script: Vrdznagir, cursive;
   --font-caption: Aida, 'Times New Roman', serif;
   /* Polaroid caption (reference: brush names + taupe serif date) */
-  --text-hero-names: clamp(32px, 8.4vw, 42px);
-  --text-hero-date: clamp(15px, 3.6vw, 19px);
+  --text-hero-names: clamp(26px, 7.5vw, 42px);
+  --text-hero-date: clamp(14px, 3.4vw, 19px);
   --color-hero-date: var(--color-accent);
-  --text-hero-hint: 15px;
-  --text-body-lg: clamp(20px, 2.4vw, 24px);
-  --text-body: clamp(18px, 2vw, 22px);
-  --text-body-sm: clamp(17px, 1.8vw, 19px);
-  --text-btn: clamp(18px, 2vw, 22px);
-  --text-countdown-title: clamp(22px, 4vw, 25px);
-  --text-countdown-digits: clamp(28px, 7vw, 55px);
-  --text-countdown-units: 19px;
+  --text-hero-hint: clamp(13px, 3.4vw, 15px);
+  --text-body-lg: clamp(17px, 4.6vw, 24px);
+  --text-body: clamp(16px, 4.2vw, 22px);
+  --text-body-sm: clamp(15px, 3.8vw, 19px);
+  --text-btn: clamp(16px, 4.2vw, 22px);
+  --text-countdown-title: clamp(20px, 5vw, 25px);
+  --text-countdown-digits: clamp(24px, 6.5vw, 55px);
+  --text-countdown-units: clamp(14px, 3.6vw, 19px);
   --leading-body: 1.55;
   --leading-invite: 1.5;
   --leading-hero-hint: 0.9;

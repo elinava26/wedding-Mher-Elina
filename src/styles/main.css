@@ -8,10 +8,14 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
   font-family: var(--font-base);
   font-weight: var(--weight-light);
   font-size: var(--text-body-lg);
@@ -35,6 +39,12 @@ img {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+#app {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 .u-visually-hidden {
@@ -252,7 +262,7 @@ a {
 /* Brush calligraphy — dark script (reference polaroid) */
 .hero-polaroid__names {
   margin: 0;
-  padding: 0 84px 6px 4px;
+  padding: 0 clamp(52px, 18vw, 84px) 6px 4px;
   font-family: var(--font-script);
   font-size: var(--text-hero-names);
   font-style: normal;
@@ -260,7 +270,8 @@ a {
   line-height: 1.08;
   letter-spacing: 0.02em;
   color: var(--color-text);
-  white-space: nowrap;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -345,11 +356,14 @@ a {
   .hero {
     padding-top: max(64px, env(safe-area-inset-top, 0px));
     gap: 18px;
+    min-height: 100svh;
+    min-height: 100dvh;
   }
 
   .hero__scene {
-    height: min(76svh, 700px);
-    max-height: calc(100svh - 180px);
+    height: min(72svh, 700px);
+    max-height: calc(100svh - 200px);
+    max-height: calc(100dvh - 200px);
   }
 
   .hero__hint {
@@ -373,9 +387,14 @@ a {
   }
 
   .hero-polaroid__names {
-    font-size: clamp(24px, 7vw, 34px);
-    padding-right: 72px;
+    font-size: clamp(22px, 6.2vw, 30px);
+    padding-right: clamp(48px, 14vw, 64px);
     letter-spacing: 0.01em;
+    line-height: 1.12;
+  }
+
+  .hero-polaroid__caption {
+    overflow: hidden;
   }
 
   .hero-polaroid__date {
@@ -562,7 +581,7 @@ a {
 }
 
 .floral-divider__sprig {
-  width: min(220px, min(52vw, 100vw - 2 * var(--page-gutter)));
+  width: min(220px, 52vw);
   aspect-ratio: 1;
   margin: 0;
   border: none;
@@ -717,24 +736,34 @@ a {
   color: var(--color-text);
   max-width: 100%;
   margin: 0 0 clamp(20px, 4vw, 28px);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .venue-card__text strong {
   font-weight: var(--weight-semibold);
 }
 
+.venue-card__flower,
 .venue-card__illustration {
   display: block;
   width: min(292px, 78vw);
+  max-width: 100%;
   height: auto;
   aspect-ratio: 292 / 282;
   margin: 0 0 clamp(24px, 5vw, 32px);
   object-fit: contain;
 }
 
+.venue-card__divider,
 .venue-card__illustration--wide {
+  display: block;
   width: min(433px, 92vw);
+  max-width: 100%;
+  height: auto;
   aspect-ratio: 433 / 214;
+  margin: 0 0 clamp(24px, 5vw, 32px);
+  object-fit: contain;
 }
 
 .btn-map {
@@ -910,7 +939,7 @@ a {
 }
 
 .dress-gift-icon__shape {
-  width: min(100px, min(26vw, 100vw - 2 * var(--page-gutter)));
+  width: min(100px, 26vw);
   aspect-ratio: 230 / 229;
   margin: 0;
   border: none;
@@ -1331,26 +1360,94 @@ a {
 .countdown-card__digits {
   font-size: var(--text-countdown-digits);
   font-weight: var(--weight-semibold);
-  letter-spacing: 2px;
+  letter-spacing: clamp(1px, 0.45vw, 2px);
   line-height: var(--leading-body);
   margin: 0 0 20px;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
 }
 
 .countdown-card__units {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 8px 40px;
+  gap: 8px clamp(16px, 8vw, 40px);
   font-size: var(--text-countdown-units);
   font-weight: var(--weight-regular);
   line-height: var(--leading-body);
   opacity: 0.95;
+  max-width: 100%;
 }
 
 @media (max-width: 479px) {
+  .countdown-card__heading {
+    font-size: clamp(18px, 4.8vw, 22px);
+    padding: 0 4px;
+  }
+
+  .countdown-card__digits {
+    font-size: clamp(20px, 6.2vw, 32px);
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+
   .countdown-card__units {
     font-size: 14px;
     opacity: 0.6;
-    gap: 8px 24px;
+    gap: 8px 20px;
+  }
+}
+
+@media (max-width: 430px) {
+  .hero__scene {
+    width: min(100%, 92vw);
+    height: min(68svh, 600px);
+    max-height: calc(100dvh - 210px);
+  }
+
+  .hero-polaroid {
+    width: min(280px, 90%);
+  }
+
+  .section-phone-photo {
+    padding-left: max(var(--page-gutter), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--page-gutter), env(safe-area-inset-right, 0px));
+  }
+
+  .photo-carousel {
+    max-width: 100%;
+  }
+
+  .calendar-card__weekdays {
+    font-size: clamp(9px, 2.4vw, 11px);
+    letter-spacing: 0.02em;
+    gap: 2px clamp(2px, 1vw, 6px);
+  }
+
+  .calendar-card__grid {
+    gap: clamp(3px, 1.2vw, 6px) clamp(2px, 1.2vw, 6px);
+  }
+
+  .cal-day--mark {
+    min-width: 2rem;
+    min-height: 2rem;
+  }
+
+  .cal-day__heart {
+    width: 2.35rem;
+    height: 2.1rem;
+  }
+
+  .rsvp-btn-add-guest {
+    max-width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .rsvp-card {
+    border-radius: 22px;
+    padding-left: clamp(16px, 4vw, 20px);
+    padding-right: clamp(16px, 4vw, 20px);
   }
 }
