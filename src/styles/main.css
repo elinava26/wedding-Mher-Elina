@@ -128,17 +128,6 @@ a {
   height: auto;
 }
 
-@media (max-width: 479px) {
-  .music-widget__hit {
-    width: 54px;
-    height: 54px;
-  }
-
-  .music-widget__hit img {
-    width: 29px;
-  }
-}
-
 /* --- Hero: belleame.am/nice_pic — white page + blurred column + polaroid --- */
 .hero {
   position: relative;
@@ -397,34 +386,6 @@ a {
 
   .hero__chevron {
     width: 32px;
-  }
-}
-
-@media (max-width: 479px) {
-  .hero {
-    gap: 10px;
-    padding-bottom: max(16px, env(safe-area-inset-bottom, 12px));
-  }
-
-  .hero-polaroid {
-    max-width: 100%;
-  }
-
-  .hero-polaroid__names {
-    font-size: clamp(22px, 6.2vw, 30px);
-    letter-spacing: 0.01em;
-    line-height: 1.12;
-  }
-
-  .hero-polaroid__caption {
-    padding: 12px 10px 14px;
-    gap: 8px;
-  }
-
-  .hero-polaroid__date {
-    font-size: clamp(13px, 3.6vw, 16px);
-    letter-spacing: 0.06em;
-    margin-right: 2px;
   }
 }
 
@@ -955,13 +916,6 @@ a {
   }
 }
 
-@media (max-width: 479px) {
-  .section-invite__text {
-    font-size: 18px;
-    line-height: 1.4;
-  }
-}
-
 /* --- Dress code --- */
 .section-dress {
   padding: clamp(28px, 6vw, 40px) 0 clamp(8px, 2vw, 12px);
@@ -1417,59 +1371,231 @@ a {
   max-width: 100%;
 }
 
-@media (max-width: 479px) {
-  .countdown-card__heading {
-    font-size: clamp(18px, 4.8vw, 22px);
-    padding: 0 4px;
-  }
-
-  .countdown-card__digits {
-    font-size: clamp(20px, 6.2vw, 32px);
-    letter-spacing: 1px;
-    margin-bottom: 14px;
-  }
-
-  .countdown-card__units {
-    font-size: 14px;
-    opacity: 0.6;
-    gap: 8px 20px;
-  }
-}
-
-@media (max-width: 430px) {
+/* --- Mobile (≤600px): 20px gutters, smaller type, compact buttons --- */
+@media (max-width: 600px) {
   :root {
+    --page-gutter: 20px;
+    --text-body-lg: 16px;
+    --text-body: 15px;
+    --text-body-sm: 14px;
+    --text-btn: 15px;
+    --text-hero-names: clamp(20px, 5.5vw, 26px);
+    --text-hero-date: 13px;
+    --text-hero-hint: 13px;
+    --text-countdown-title: 18px;
+    --text-countdown-digits: clamp(20px, 5.5vw, 28px);
+    --text-countdown-units: 13px;
     --hero-image-max-height: min(80vh, 80dvh, calc(100dvh - 14.5rem));
+  }
+
+  body {
+    font-size: var(--text-body-lg);
+    line-height: 1.5;
+  }
+
+  .u-container,
+  .hero,
+  #app > section:not(.u-container):not(.hero) {
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+  }
+
+  .floral-divider {
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+  }
+
+  .music-widget {
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+  }
+
+  .music-widget__hit {
+    width: 48px;
+    height: 48px;
+  }
+
+  .music-widget__hit img {
+    width: 27px;
+  }
+
+  .hero {
+    gap: 10px;
+    padding-bottom: max(16px, env(safe-area-inset-bottom, 12px));
+  }
+
+  .hero-polaroid {
+    max-width: 100%;
+  }
+
+  .hero-polaroid__names {
+    font-size: var(--text-hero-names);
+    letter-spacing: 0.01em;
+    line-height: 1.12;
+  }
+
+  .hero-polaroid__caption {
+    padding: 12px 10px 14px;
+    gap: 8px;
+  }
+
+  .hero-polaroid__date {
+    font-size: var(--text-hero-date);
+    letter-spacing: 0.06em;
+    margin-right: 2px;
+  }
+
+  .section-invite__text {
+    font-size: var(--text-body-lg);
+    line-height: 1.45;
+  }
+
+  .calendar-card__month {
+    font-size: clamp(18px, 4.8vw, 22px);
+  }
+
+  .calendar-card__year {
+    font-size: clamp(14px, 3.5vw, 17px);
   }
 
   .calendar-card__weekdays {
     font-size: clamp(9px, 2.4vw, 11px);
     letter-spacing: 0.02em;
-    gap: 2px clamp(2px, 1vw, 6px);
+    gap: 2px 4px;
   }
 
   .calendar-card__grid {
-    gap: clamp(3px, 1.2vw, 6px) clamp(2px, 1.2vw, 6px);
+    gap: 4px 3px;
+  }
+
+  .cal-day {
+    font-size: clamp(12px, 3.2vw, 14px);
   }
 
   .cal-day--mark {
-    min-width: 2rem;
-    min-height: 2rem;
+    min-width: 1.9rem;
+    min-height: 1.9rem;
   }
 
   .cal-day__heart {
-    width: 2.35rem;
-    height: 2.1rem;
+    width: 2.25rem;
+    height: 2rem;
+  }
+
+  .timeline {
+    --timeline-marker-size: 46px;
+  }
+
+  .timeline__item {
+    gap: 14px;
+  }
+
+  .timeline__list {
+    gap: 28px;
+  }
+
+  .timeline__time {
+    font-size: 17px;
+    margin-bottom: 4px;
+  }
+
+  .timeline__body {
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  .section-dress__text {
+    font-size: var(--text-body);
+    line-height: 1.5;
+  }
+
+  .rsvp-header__title {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .rsvp-header__intro,
+  .rsvp-field__label,
+  .rsvp-choice {
+    font-size: var(--text-body-sm);
+  }
+
+  .rsvp-input {
+    font-size: var(--text-body);
+  }
+
+  .rsvp-card {
+    border-radius: 22px;
+    padding: 20px 18px 24px;
+  }
+
+  .rsvp-input--underline {
+    height: 40px;
+  }
+
+  .rsvp-input--guest-pill,
+  .rsvp-btn-remove-guest {
+    height: 44px;
+    min-height: 44px;
+  }
+
+  .rsvp-btn-remove-guest {
+    width: 44px;
   }
 
   .rsvp-btn-add-guest {
     max-width: 100%;
     justify-content: center;
     text-align: center;
+    flex-wrap: wrap;
+    font-size: 13px;
+    padding: 10px 14px;
   }
 
-  .rsvp-card {
-    border-radius: 22px;
-    padding-left: clamp(16px, 4vw, 20px);
-    padding-right: clamp(16px, 4vw, 20px);
+  .btn-map {
+    width: 100%;
+    max-width: 100%;
+    min-height: 48px;
+    font-size: var(--text-btn);
+    padding: 0 20px;
+    margin-bottom: clamp(28px, 6vw, 40px);
+  }
+
+  .btn-submit {
+    min-height: 48px;
+    font-size: var(--text-btn);
+    padding: 0 20px;
+    gap: 10px;
+  }
+
+  .btn-submit__icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .countdown-card__heading {
+    font-size: var(--text-countdown-title);
+    padding: 0 4px;
+  }
+
+  .countdown-card__digits {
+    font-size: var(--text-countdown-digits);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .countdown-card__units {
+    font-size: var(--text-countdown-units);
+    gap: 8px 18px;
+    opacity: 0.65;
+  }
+
+  .section-invite__text,
+  .section-dress__text,
+  .venue-card__text,
+  .rsvp-header__title,
+  .rsvp-header__intro,
+  .rsvp-choice__text {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
 }
