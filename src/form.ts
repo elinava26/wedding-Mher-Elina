@@ -116,6 +116,34 @@ function initExtraGuestRows(form: HTMLFormElement): void {
   });
 }
 
+interface RsvpPayload {
+  Question: string;
+  Name: string;
+  ExtraGuest: string[];
+  Guest: string[];
+}
+
+function collectPayload(form: HTMLFormElement): RsvpPayload {
+  const fd: FormData = new FormData(form);
+  const extraGuest: string[] = [];
+  fd.getAll('ExtraGuest').forEach((value: FormDataEntryValue) => {
+    const trimmed: string = String(value).trim();
+    if (trimmed.length > 0) {
+      extraGuest.push(trimmed);
+    }
+  });
+  const guest: string[] = [];
+  fd.getAll('Guest').forEach((value: FormDataEntryValue) => {
+    guest.push(String(value));
+  });
+  return {
+    Question: String(fd.get('Question') ?? ''),
+    Name: String(fd.get('Name') ?? '').trim(),
+    ExtraGuest: extraGuest,
+    Guest: guest,
+  };
+}
+
 function validate(form: HTMLFormElement): string | null {
   const nameInput: HTMLInputElement | null = form.querySelector('[name="Name"]');
   if (!nameInput?.value.trim()) {
@@ -161,7 +189,7 @@ export function initForm(): void {
       return;
     }
 
-    const fd: FormData = new FormData(form);
+    const payload: RsvpPayload = collectPayload(form);
 
     if (!submitUrl) {
       box.textContent = 'Շնորհակալություն։';
@@ -174,9 +202,11 @@ export function initForm(): void {
     try {
       const res: Response = await fetch(submitUrl, {
         method: 'POST',
-        body: fd,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
-      if (!res.ok) {
+      const data: { ok?: boolean } = (await res.json()) as { ok?: boolean };
+      if (!res.ok || data.ok !== true) {
         throw new Error(`HTTP ${res.status}`);
       }
       box.textContent = 'Շնորհակալություն։';
