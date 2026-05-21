@@ -45,13 +45,14 @@ function joinField(value) {
   return String(value).trim();
 }
 
+/** HtmlService avoids 302 redirect that breaks browser fetch + JSON parsing. */
 function jsonResponse(ok, message) {
   var body = { ok: ok };
   if (message) {
     body.message = message;
   }
-  return ContentService.createTextOutput(JSON.stringify(body)).setMimeType(
-    ContentService.MimeType.JSON,
+  return HtmlService.createHtmlOutput(JSON.stringify(body)).setXFrameOptionsMode(
+    HtmlService.XFrameOptionsMode.ALLOWALL,
   );
 }
 

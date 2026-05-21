@@ -165,6 +165,17 @@ function validate(form: HTMLFormElement): string | null {
   return null;
 }
 
+function parseRsvpResponse(text: string): { ok?: boolean } {
+  try {
+    return JSON.parse(text) as { ok?: boolean };
+  } catch {
+    if (/\"ok\"\s*:\s*true/.test(text)) {
+      return { ok: true };
+    }
+    return {};
+  }
+}
+
 export function initForm(): void {
   const form: HTMLFormElement | null = document.querySelector('[data-rsvp-form]');
   const box: HTMLElement | null = document.querySelector('[data-rsvp-feedback]');
@@ -202,10 +213,12 @@ export function initForm(): void {
     try {
       const res: Response = await fetch(submitUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        redirect: 'follow',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(payload),
       });
-      const data: { ok?: boolean } = (await res.json()) as { ok?: boolean };
+      const text: string = await res.text();
+      const data: { ok?: boolean } = parseRsvpResponse(text);
       if (!res.ok || data.ok !== true) {
         throw new Error(`HTTP ${res.status}`);
       }
