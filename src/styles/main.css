@@ -146,11 +146,28 @@ a {
     max(20px, env(safe-area-inset-bottom, 16px)) max(var(--page-gutter), env(safe-area-inset-left, 0px));
   box-sizing: border-box;
   overflow: hidden;
+  isolation: isolate;
+}
+
+/* Soft photo wash on white margins (reference layout) */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url('/img/1.JPG');
+  background-size: cover;
+  background-position: center 30%;
+  filter: blur(18px) saturate(0.95);
+  transform: scale(1.06);
+  opacity: 0.42;
+  pointer-events: none;
 }
 
 /* Blur stays inside this box; white shows on sides (reference) */
 .hero__scene {
   position: relative;
+  z-index: 1;
   flex: 1 1 0;
   min-height: 0;
   width: 100%;
@@ -162,16 +179,17 @@ a {
   justify-content: center;
   overflow: hidden;
   isolation: isolate;
+  border-radius: 4px;
 }
 
 .hero__blur {
   position: absolute;
-  inset: -24px;
+  inset: -20px;
   background-image: url('/img/1.JPG');
   background-size: cover;
   background-position: center 28%;
-  filter: blur(8px) saturate(0.92);
-  transform: scale(1.08);
+  filter: blur(10px) saturate(0.95);
+  transform: scale(1.1);
   z-index: 0;
   pointer-events: none;
 }
@@ -180,7 +198,7 @@ a {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.12);
   pointer-events: none;
 }
 
@@ -192,9 +210,9 @@ a {
   flex: 1 1 auto;
   min-height: 0;
   max-height: 100%;
-  margin: 0;
-  width: 100%;
-  max-width: min(318px, 100%);
+  margin: 0 auto;
+  width: 88%;
+  max-width: min(318px, 88%);
   background: #ffffff;
   box-shadow:
     0 1px 4px rgba(0, 0, 0, 0.05),
@@ -318,6 +336,7 @@ a {
 /* Below blurred column — on white (reference) */
 .hero__hint {
   position: relative;
+  z-index: 1;
   flex-shrink: 0;
   margin: 0;
   text-align: center;
@@ -369,7 +388,7 @@ a {
   }
 
   .hero-polaroid {
-    max-width: min(336px, 100%);
+    max-width: min(336px, 88%);
   }
 }
 
@@ -1423,8 +1442,13 @@ a {
     padding-bottom: max(16px, env(safe-area-inset-bottom, 12px));
   }
 
+  .hero::before {
+    opacity: 0.38;
+  }
+
   .hero-polaroid {
-    max-width: 100%;
+    width: 86%;
+    max-width: min(300px, 86%);
   }
 
   .hero-polaroid__names {
