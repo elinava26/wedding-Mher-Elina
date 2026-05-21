@@ -1562,17 +1562,24 @@ a {
     margin-bottom: clamp(24px, 5vw, 36px);
   }
 
+  .rsvp-submit {
+    justify-content: center;
+  }
+
   .btn-submit {
-    min-height: 42px;
-    padding: 8px 18px;
-    font-size: var(--text-btn);
+    width: auto;
+    max-width: 100%;
+    min-height: 38px;
+    padding: 7px 16px;
+    border-radius: 22px;
+    font-size: 13px;
     line-height: 1.3;
-    gap: 8px;
+    gap: 6px;
   }
 
   .btn-submit__icon {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
   }
 
   .countdown-card__heading {
