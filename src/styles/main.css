@@ -66,6 +66,14 @@ a {
   margin-right: auto;
   padding-left: max(var(--page-gutter), env(safe-area-inset-left, 0px));
   padding-right: max(var(--page-gutter), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+
+/* Sections without .u-container still get the same side inset */
+#app > section:not(.u-container):not(.hero) {
+  padding-left: max(var(--page-gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--page-gutter), env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
 }
 
 /* Hidden YouTube background player */
@@ -151,7 +159,8 @@ a {
 /* Blur stays inside this box; white shows on sides (reference) */
 .hero__scene {
   position: relative;
-  width: min(380px, 88vw);
+  width: 100%;
+  max-width: min(380px, 100%);
   height: min(78svh, 760px);
   max-height: calc(100svh - 200px);
   margin: 0 auto;
@@ -187,8 +196,8 @@ a {
   position: relative;
   z-index: 2;
   margin: 0;
-  width: min(318px, 84%);
-  max-width: calc(100% - 32px);
+  width: 100%;
+  max-width: min(318px, 100%);
   background: #ffffff;
   box-shadow:
     0 1px 4px rgba(0, 0, 0, 0.05),
@@ -252,17 +261,20 @@ a {
 }
 
 .hero-polaroid__caption {
-  position: relative;
-  padding: 16px 14px 58px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 12px 18px;
   text-align: center;
   background: #ffffff;
-  min-height: 92px;
 }
 
 /* Brush calligraphy — dark script (reference polaroid) */
 .hero-polaroid__names {
   margin: 0;
-  padding: 0 clamp(52px, 18vw, 84px) 6px 4px;
+  padding: 0 8px;
+  width: 100%;
   font-family: var(--font-script);
   font-size: var(--text-hero-names);
   font-style: normal;
@@ -276,21 +288,21 @@ a {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Taupe serif date — bottom-right (reference) */
+/* Taupe serif date — below names, aligned right (always visible) */
 .hero-polaroid__date {
-  position: absolute;
-  right: 14px;
-  bottom: 16px;
-  margin: 0;
+  align-self: flex-end;
+  margin: 0 4px 0 0;
+  padding: 0 4px;
   font-family: var(--font-caption);
   font-size: var(--text-hero-date);
   font-weight: var(--weight-light);
   font-style: italic;
   font-variant-numeric: lining-nums;
-  letter-spacing: 0.1em;
-  line-height: 1;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
   color: var(--color-hero-date);
   opacity: 0.95;
+  white-space: nowrap;
 }
 
 /* Below blurred column — on white (reference) */
@@ -343,12 +355,12 @@ a {
 
 @media (min-width: 480px) {
   .hero__scene {
-    width: min(400px, 86vw);
+    max-width: min(400px, 100%);
     height: min(80svh, 800px);
   }
 
   .hero-polaroid {
-    width: min(336px, 82%);
+    max-width: min(336px, 100%);
   }
 }
 
@@ -378,30 +390,28 @@ a {
 
 @media (max-width: 479px) {
   .hero__scene {
-    width: min(340px, 92vw);
     height: min(74svh, 640px);
   }
 
   .hero-polaroid {
-    width: min(292px, 86%);
+    max-width: 100%;
   }
 
   .hero-polaroid__names {
     font-size: clamp(22px, 6.2vw, 30px);
-    padding-right: clamp(48px, 14vw, 64px);
     letter-spacing: 0.01em;
     line-height: 1.12;
   }
 
   .hero-polaroid__caption {
-    overflow: hidden;
+    padding: 14px 10px 16px;
+    gap: 8px;
   }
 
   .hero-polaroid__date {
-    right: 12px;
-    bottom: 14px;
-    font-size: clamp(14px, 3.8vw, 17px);
-    letter-spacing: 0.08em;
+    font-size: clamp(13px, 3.6vw, 16px);
+    letter-spacing: 0.06em;
+    margin-right: 2px;
   }
 }
 
@@ -413,7 +423,8 @@ a {
 
 .section-invite__monogram {
   display: block;
-  width: min(370px, 88vw);
+  width: 100%;
+  max-width: 370px;
   height: auto;
   aspect-ratio: 370 / 75;
   margin: 0 auto clamp(28px, 5vw, 36px);
@@ -564,7 +575,9 @@ a {
 .floral-divider {
   display: flex;
   justify-content: center;
-  padding: 4px 0 32px;
+  padding: 4px max(var(--page-gutter), env(safe-area-inset-right, 0px)) 32px
+    max(var(--page-gutter), env(safe-area-inset-left, 0px));
+  box-sizing: border-box;
 }
 
 .floral-divider.floral-divider--page {
@@ -619,7 +632,7 @@ a {
 
 .photo-carousel {
   width: 100%;
-  max-width: min(492px, 92vw);
+  max-width: 492px;
   margin: 0 auto;
 }
 
@@ -685,11 +698,6 @@ a {
   outline-offset: 3px;
 }
 
-@media (max-width: 479px) {
-  .photo-carousel {
-    max-width: min(351px, 94vw);
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .photo-carousel__slide {
@@ -704,7 +712,8 @@ a {
 
 .section-venues__title {
   display: block;
-  width: min(357px, 88vw);
+  width: 100%;
+  max-width: 357px;
   height: auto;
   aspect-ratio: 357 / 84;
   margin: 0 auto clamp(28px, 5vw, 40px);
@@ -747,22 +756,22 @@ a {
 .venue-card__flower,
 .venue-card__illustration {
   display: block;
-  width: min(292px, 78vw);
-  max-width: 100%;
+  width: 100%;
+  max-width: 292px;
   height: auto;
   aspect-ratio: 292 / 282;
-  margin: 0 0 clamp(24px, 5vw, 32px);
+  margin: 0 auto clamp(24px, 5vw, 32px);
   object-fit: contain;
 }
 
 .venue-card__divider,
 .venue-card__illustration--wide {
   display: block;
-  width: min(433px, 92vw);
-  max-width: 100%;
+  width: 100%;
+  max-width: 433px;
   height: auto;
   aspect-ratio: 433 / 214;
-  margin: 0 0 clamp(24px, 5vw, 32px);
+  margin: 0 auto clamp(24px, 5vw, 32px);
   object-fit: contain;
 }
 
@@ -802,7 +811,8 @@ a {
 
 .section-timeline__title {
   display: block;
-  width: min(302px, 82vw);
+  width: 100%;
+  max-width: 302px;
   height: auto;
   aspect-ratio: 302 / 71;
   margin: 0 auto clamp(28px, 5vw, 40px);
@@ -810,7 +820,8 @@ a {
 }
 
 .timeline {
-  max-width: min(560px, 94vw);
+  width: 100%;
+  max-width: 560px;
   margin: 0 auto;
   padding: 0 clamp(4px, 1vw, 12px);
 }
@@ -1313,7 +1324,7 @@ a {
 .countdown-card {
   position: relative;
   width: 100%;
-  max-width: min(616px, 92vw);
+  max-width: 616px;
   margin: 0 auto;
   border-radius: var(--photo-radius);
   overflow: hidden;
@@ -1401,22 +1412,8 @@ a {
 
 @media (max-width: 430px) {
   .hero__scene {
-    width: min(100%, 92vw);
     height: min(68svh, 600px);
     max-height: calc(100dvh - 210px);
-  }
-
-  .hero-polaroid {
-    width: min(280px, 90%);
-  }
-
-  .section-phone-photo {
-    padding-left: max(var(--page-gutter), env(safe-area-inset-left, 0px));
-    padding-right: max(var(--page-gutter), env(safe-area-inset-right, 0px));
-  }
-
-  .photo-carousel {
-    max-width: 100%;
   }
 
   .calendar-card__weekdays {
