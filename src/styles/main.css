@@ -697,7 +697,7 @@ a {
 .section-venues__title {
   display: block;
   width: 100%;
-  max-width: 357px;
+  max-width: 310px;
   height: auto;
   aspect-ratio: 357 / 84;
   margin: 0 auto clamp(28px, 5vw, 40px);
@@ -797,7 +797,7 @@ a {
 .section-timeline__title {
   display: block;
   width: 100%;
-  max-width: 302px;
+  max-width: 265px;
   height: auto;
   aspect-ratio: 302 / 71;
   margin: 0 auto clamp(28px, 5vw, 40px);
@@ -1379,7 +1379,7 @@ a {
     --text-body: 15px;
     --text-body-sm: 14px;
     --text-btn: 14px;
-    --text-hero-names: clamp(20px, 5.5vw, 26px);
+    --text-hero-names: clamp(24px, 6.5vw, 30px);
     --text-hero-date: 13px;
     --text-hero-hint: 13px;
     --text-countdown-title: 18px;
@@ -1447,6 +1447,14 @@ a {
   .section-invite__text {
     font-size: var(--text-body-lg);
     line-height: 1.45;
+  }
+
+  .section-venues__title {
+    max-width: 280px;
+  }
+
+  .section-timeline__title {
+    max-width: 240px;
   }
 
   .calendar-card__month {
