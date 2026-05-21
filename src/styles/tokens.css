@@ -123,7 +123,7 @@
   --font-caption: Aida, 'Times New Roman', serif;
   /* Polaroid caption (reference: brush names + taupe serif date) */
   --text-hero-names: clamp(30px, 8.5vw, 46px);
-  --text-hero-date: clamp(14px, 3.4vw, 19px);
+  --text-hero-date: clamp(16px, 4vw, 21px);
   --color-hero-date: var(--color-accent);
   --text-hero-hint: clamp(13px, 3.4vw, 15px);
   --text-body-lg: clamp(17px, 4.6vw, 24px);

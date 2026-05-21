@@ -1380,7 +1380,7 @@ a {
     --text-body-sm: 14px;
     --text-btn: 14px;
     --text-hero-names: clamp(24px, 6.5vw, 30px);
-    --text-hero-date: 13px;
+    --text-hero-date: 15px;
     --text-hero-hint: 13px;
     --text-countdown-title: 18px;
     --text-countdown-digits: clamp(20px, 5.5vw, 28px);
