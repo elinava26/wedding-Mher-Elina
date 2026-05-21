@@ -142,32 +142,35 @@ a {
 /* --- Hero: belleame.am/nice_pic — white page + blurred column + polaroid --- */
 .hero {
   position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
-  min-height: 100svh;
-  background: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: clamp(20px, 4vh, 32px);
+  justify-content: space-between;
+  gap: clamp(12px, 2.5vh, 24px);
+  height: 100svh;
+  height: 100dvh;
+  max-height: 100dvh;
+  min-height: 100svh;
+  min-height: 100dvh;
+  background: #ffffff;
   padding: max(56px, env(safe-area-inset-top, 0px)) max(var(--page-gutter), env(safe-area-inset-right, 0px))
-    max(28px, env(safe-area-inset-bottom, 16px)) max(var(--page-gutter), env(safe-area-inset-left, 0px));
+    max(20px, env(safe-area-inset-bottom, 16px)) max(var(--page-gutter), env(safe-area-inset-left, 0px));
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* Blur stays inside this box; white shows on sides (reference) */
 .hero__scene {
   position: relative;
+  flex: 1 1 0;
+  min-height: 0;
   width: 100%;
   max-width: min(380px, 100%);
-  height: min(78svh, 760px);
-  max-height: calc(100svh - 200px);
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
   overflow: hidden;
   isolation: isolate;
 }
@@ -195,6 +198,11 @@ a {
 .hero-polaroid {
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 100%;
   margin: 0;
   width: 100%;
   max-width: min(318px, 100%);
@@ -237,11 +245,21 @@ a {
 
 /* Polaroid: thin top/side border, wide bottom caption strip */
 .hero-polaroid__picture {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
   padding: 12px 12px 0;
   background: #ffffff;
 }
 
 .hero-polaroid__double {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0;
   background: #ffffff;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
@@ -251,12 +269,14 @@ a {
 
 .hero-polaroid__img {
   display: block;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: auto;
+  max-height: min(100%, var(--hero-image-max-height));
+  margin: 0 auto;
   vertical-align: middle;
-  aspect-ratio: 2 / 3;
-  object-fit: cover;
-  object-position: center 32%;
+  object-fit: contain;
+  object-position: center center;
   border-radius: var(--photo-radius);
 }
 
@@ -264,6 +284,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-shrink: 0;
   gap: 10px;
   padding: 16px 12px 18px;
   text-align: center;
@@ -356,7 +377,6 @@ a {
 @media (min-width: 480px) {
   .hero__scene {
     max-width: min(400px, 100%);
-    height: min(80svh, 800px);
   }
 
   .hero-polaroid {
@@ -367,15 +387,7 @@ a {
 @media (max-width: 959px) {
   .hero {
     padding-top: max(64px, env(safe-area-inset-top, 0px));
-    gap: 18px;
-    min-height: 100svh;
-    min-height: 100dvh;
-  }
-
-  .hero__scene {
-    height: min(72svh, 700px);
-    max-height: calc(100svh - 200px);
-    max-height: calc(100dvh - 200px);
+    gap: 12px;
   }
 
   .hero__hint {
@@ -389,8 +401,9 @@ a {
 }
 
 @media (max-width: 479px) {
-  .hero__scene {
-    height: min(74svh, 640px);
+  .hero {
+    gap: 10px;
+    padding-bottom: max(16px, env(safe-area-inset-bottom, 12px));
   }
 
   .hero-polaroid {
@@ -404,7 +417,7 @@ a {
   }
 
   .hero-polaroid__caption {
-    padding: 14px 10px 16px;
+    padding: 12px 10px 14px;
     gap: 8px;
   }
 
@@ -631,23 +644,31 @@ a {
 }
 
 .photo-carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   max-width: 492px;
   margin: 0 auto;
 }
 
 .photo-carousel__viewport {
-  position: relative;
-  aspect-ratio: 2 / 3;
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+  max-height: var(--image-max-height);
   overflow: hidden;
   background-color: #ebe6e2;
   border-radius: var(--photo-radius);
 }
 
 .photo-carousel__slide {
-  position: absolute;
-  inset: 0;
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0;
+  max-height: var(--image-max-height);
   opacity: 0;
   transition: opacity 0.85s ease;
   pointer-events: none;
@@ -661,10 +682,12 @@ a {
 
 .photo-carousel__slide img {
   display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 38%;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: var(--image-max-height);
+  object-fit: contain;
+  object-position: center center;
 }
 
 .photo-carousel__dots {
@@ -758,6 +781,7 @@ a {
   display: block;
   width: 100%;
   max-width: 292px;
+  max-height: min(var(--image-max-height), 320px);
   height: auto;
   aspect-ratio: 292 / 282;
   margin: 0 auto clamp(24px, 5vw, 32px);
@@ -1322,7 +1346,8 @@ a {
 
 /* --- Bottom countdown card --- */
 .countdown-card {
-  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
   width: 100%;
   max-width: 616px;
   margin: 0 auto;
@@ -1331,29 +1356,30 @@ a {
 }
 
 .countdown-card__photo {
+  grid-area: 1 / 1;
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 2 / 3;
-  object-fit: cover;
-  object-position: center 38%;
+  max-height: var(--image-max-height);
+  object-fit: contain;
+  object-position: center center;
   vertical-align: middle;
 }
 
 .countdown-card__overlay {
-  position: absolute;
-  inset: 0;
+  grid-area: 1 / 1;
+  align-self: stretch;
   background: rgba(0, 0, 0, 0.25);
   pointer-events: none;
 }
 
 .countdown-card__content {
-  position: absolute;
-  inset: 0;
+  grid-area: 1 / 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
+  align-self: stretch;
   padding: clamp(24px, 5vw, 32px) max(12px, env(safe-area-inset-right, 0px))
     max(36px, env(safe-area-inset-bottom, 16px)) max(12px, env(safe-area-inset-left, 0px));
   color: #ffffff;
@@ -1411,9 +1437,8 @@ a {
 }
 
 @media (max-width: 430px) {
-  .hero__scene {
-    height: min(68svh, 600px);
-    max-height: calc(100dvh - 210px);
+  :root {
+    --hero-image-max-height: min(80vh, 80dvh, calc(100dvh - 14.5rem));
   }
 
   .calendar-card__weekdays {
