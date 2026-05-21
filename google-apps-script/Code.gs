@@ -45,24 +45,37 @@ function joinField(value) {
   return String(value).trim();
 }
 
-/** HtmlService avoids 302 redirect that breaks browser fetch + JSON parsing. */
 function jsonResponse(ok, message) {
   var body = { ok: ok };
   if (message) {
     body.message = message;
   }
-  return HtmlService.createHtmlOutput(JSON.stringify(body)).setXFrameOptionsMode(
-    HtmlService.XFrameOptionsMode.ALLOWALL,
+  return ContentService.createTextOutput(JSON.stringify(body)).setMimeType(
+    ContentService.MimeType.JSON,
   );
+}
+
+function parsePayload(e) {
+  if (e.postData && e.postData.contents) {
+    var type = e.postData.type || '';
+    if (type.indexOf('application/json') !== -1 || type.indexOf('text/plain') !== -1) {
+      return JSON.parse(e.postData.contents);
+    }
+  }
+  if (e.parameters) {
+    return {
+      Question: (e.parameters.Question && e.parameters.Question[0]) || '',
+      Name: (e.parameters.Name && e.parameters.Name[0]) || '',
+      Guest: e.parameters.Guest || [],
+      ExtraGuest: e.parameters.ExtraGuest || [],
+    };
+  }
+  throw new Error('Missing body');
 }
 
 function doPost(e) {
   try {
-    if (!e.postData || !e.postData.contents) {
-      return jsonResponse(false, 'Missing body');
-    }
-
-    var payload = JSON.parse(e.postData.contents);
+    var payload = parsePayload(e);
     var question = joinField(payload.Question);
     var name = joinField(payload.Name);
     var extraGuest = joinField(payload.ExtraGuest);

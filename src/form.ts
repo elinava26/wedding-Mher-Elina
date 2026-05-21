@@ -165,15 +165,23 @@ function validate(form: HTMLFormElement): string | null {
   return null;
 }
 
-function parseRsvpResponse(text: string): { ok?: boolean } {
-  try {
-    return JSON.parse(text) as { ok?: boolean };
-  } catch {
-    if (/\"ok\"\s*:\s*true/.test(text)) {
-      return { ok: true };
-    }
-    return {};
-  }
+function buildFormBody(payload: RsvpPayload): URLSearchParams {
+  const body: URLSearchParams = new URLSearchParams();
+  body.set('Question', payload.Question);
+  body.set('Name', payload.Name);
+  payload.Guest.forEach((guest: string) => body.append('Guest', guest));
+  payload.ExtraGuest.forEach((guest: string) => body.append('ExtraGuest', guest));
+  return body;
+}
+
+/** no-cors: browser cannot read the response, but Apps Script still saves the row. */
+async function postRsvp(submitUrl: string, payload: RsvpPayload): Promise<void> {
+  await fetch(submitUrl, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' },
+    body: buildFormBody(payload).toString(),
+  });
 }
 
 export function initForm(): void {
@@ -211,17 +219,7 @@ export function initForm(): void {
     }
 
     try {
-      const res: Response = await fetch(submitUrl, {
-        method: 'POST',
-        redirect: 'follow',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload),
-      });
-      const text: string = await res.text();
-      const data: { ok?: boolean } = parseRsvpResponse(text);
-      if (!res.ok || data.ok !== true) {
-        throw new Error(`HTTP ${res.status}`);
-      }
+      await postRsvp(submitUrl, payload);
       box.textContent = 'Շնորհակալություն։';
       box.hidden = false;
       form.reset();
