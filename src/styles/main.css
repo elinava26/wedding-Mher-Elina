@@ -398,7 +398,7 @@ a {
 .section-invite__monogram {
   display: block;
   width: 100%;
-  max-width: 370px;
+  max-width: 310px;
   height: auto;
   aspect-ratio: 370 / 75;
   margin: 0 auto clamp(28px, 5vw, 36px);
@@ -797,7 +797,7 @@ a {
 .section-timeline__title {
   display: block;
   width: 100%;
-  max-width: 265px;
+  max-width: 302px;
   height: auto;
   aspect-ratio: 302 / 71;
   margin: 0 auto clamp(28px, 5vw, 40px);
@@ -1449,12 +1449,12 @@ a {
     line-height: 1.45;
   }
 
-  .section-venues__title {
+  .section-invite__monogram {
     max-width: 280px;
   }
 
-  .section-timeline__title {
-    max-width: 240px;
+  .section-venues__title {
+    max-width: 280px;
   }
 
   .calendar-card__month {
