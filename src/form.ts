@@ -174,6 +174,26 @@ function buildFormBody(payload: RsvpPayload): URLSearchParams {
   return body;
 }
 
+const THANK_YOU_MESSAGE: string = 'Շնորհակալություն։';
+
+function getFormWrap(form: HTMLFormElement): HTMLElement | null {
+  return form.closest('.rsvp-form-wrap');
+}
+
+function showRsvpThankYou(form: HTMLFormElement, box: HTMLElement): void {
+  box.textContent = THANK_YOU_MESSAGE;
+  box.hidden = false;
+  getFormWrap(form)?.classList.add('is-submitted');
+  form.reset();
+  clearExtraGuestRows(form);
+}
+
+function showRsvpMessage(form: HTMLFormElement, box: HTMLElement, message: string): void {
+  box.textContent = message;
+  box.hidden = false;
+  getFormWrap(form)?.classList.remove('is-submitted');
+}
+
 /** no-cors: browser cannot read the response, but Apps Script still saves the row. */
 async function postRsvp(submitUrl: string, payload: RsvpPayload): Promise<void> {
   await fetch(submitUrl, {
@@ -203,30 +223,22 @@ export function initForm(): void {
 
     const err: string | null = validate(form);
     if (err) {
-      box.textContent = err;
-      box.hidden = false;
+      showRsvpMessage(form, box, err);
       return;
     }
 
     const payload: RsvpPayload = collectPayload(form);
 
     if (!submitUrl) {
-      box.textContent = 'Շնորհակալություն։';
-      box.hidden = false;
-      form.reset();
-      clearExtraGuestRows(form);
+      showRsvpThankYou(form, box);
       return;
     }
 
     try {
       await postRsvp(submitUrl, payload);
-      box.textContent = 'Շնորհակալություն։';
-      box.hidden = false;
-      form.reset();
-      clearExtraGuestRows(form);
+      showRsvpThankYou(form, box);
     } catch {
-      box.textContent = 'Չհաջողվեց ուղարկել։ Խնդրում ենք փորձել կրկին։';
-      box.hidden = false;
+      showRsvpMessage(form, box, 'Չհաջողվեց ուղարկել։ Խնդրում ենք փորձել կրկին։');
     }
   });
 }

@@ -1292,6 +1292,20 @@ a {
   color: var(--rsvp-taupe);
 }
 
+.rsvp-form-wrap.is-submitted .rsvp-card {
+  display: none;
+}
+
+.rsvp-form-wrap.is-submitted .rsvp-feedback {
+  margin-top: 0;
+  padding: clamp(32px, 8vw, 48px) clamp(20px, 4vw, 28px);
+  font-size: clamp(18px, 4vw, 22px);
+  font-weight: var(--weight-semibold);
+  background-color: var(--rsvp-card-bg);
+  border-radius: 28px;
+  box-shadow: var(--rsvp-card-shadow);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .btn-submit:active {
     transform: none;
