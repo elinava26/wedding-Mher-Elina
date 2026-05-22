@@ -1,4 +1,59 @@
 const CAROUSEL_INTERVAL_MS: number = 4500;
+const SWIPE_MIN_DISTANCE_PX: number = 48;
+
+interface SwipeStart {
+  x: number;
+  y: number;
+  pointerId: number | null;
+}
+
+function initCarouselSwipe(
+  viewport: HTMLElement,
+  onSwipeLeft: () => void,
+  onSwipeRight: () => void,
+  onSwipeCancel: () => void,
+): void {
+  let start: SwipeStart | null = null;
+
+  const reset = (): void => {
+    start = null;
+    onSwipeCancel();
+  };
+
+  const onPointerDown = (ev: PointerEvent): void => {
+    if (ev.pointerType === 'mouse' && ev.button !== 0) {
+      return;
+    }
+    start = { x: ev.clientX, y: ev.clientY, pointerId: ev.pointerId };
+    viewport.setPointerCapture(ev.pointerId);
+  };
+
+  const onPointerUp = (ev: PointerEvent): void => {
+    if (!start || (start.pointerId !== null && ev.pointerId !== start.pointerId)) {
+      return;
+    }
+
+    const dx: number = ev.clientX - start.x;
+    const dy: number = ev.clientY - start.y;
+    start = null;
+
+    if (Math.abs(dx) < SWIPE_MIN_DISTANCE_PX || Math.abs(dx) < Math.abs(dy)) {
+      onSwipeCancel();
+      return;
+    }
+
+    if (dx < 0) {
+      onSwipeLeft();
+    } else {
+      onSwipeRight();
+    }
+  };
+
+  viewport.addEventListener('pointerdown', onPointerDown);
+  viewport.addEventListener('pointerup', onPointerUp);
+  viewport.addEventListener('pointercancel', reset);
+  viewport.addEventListener('lostpointercapture', reset);
+}
 
 export function initPhotoCarousel(): void {
   const root: HTMLElement | null = document.querySelector('[data-photo-carousel]');
@@ -6,6 +61,7 @@ export function initPhotoCarousel(): void {
     return;
   }
 
+  const viewport: HTMLElement | null = root.querySelector('.photo-carousel__viewport');
   const slides: HTMLElement[] = Array.from(
     root.querySelectorAll<HTMLElement>('.photo-carousel__slide'),
   );
@@ -13,7 +69,7 @@ export function initPhotoCarousel(): void {
     root.querySelectorAll<HTMLButtonElement>('.photo-carousel__dot'),
   );
 
-  if (slides.length < 2) {
+  if (!viewport || slides.length < 2) {
     return;
   }
 
@@ -65,6 +121,21 @@ export function initPhotoCarousel(): void {
   root.addEventListener('mouseleave', startAutoPlay);
   root.addEventListener('focusin', stopAutoPlay);
   root.addEventListener('focusout', startAutoPlay);
+
+  initCarouselSwipe(
+    viewport,
+    () => {
+      stopAutoPlay();
+      goTo(activeIndex + 1);
+      startAutoPlay();
+    },
+    () => {
+      stopAutoPlay();
+      goTo(activeIndex - 1);
+      startAutoPlay();
+    },
+    startAutoPlay,
+  );
 
   goTo(0);
   startAutoPlay();

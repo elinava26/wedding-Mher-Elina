@@ -619,8 +619,15 @@ a {
   width: 100%;
   max-height: var(--image-max-height);
   overflow: hidden;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
   background-color: #ebe6e2;
   border-radius: var(--photo-radius);
+}
+
+.photo-carousel__viewport:active {
+  cursor: grabbing;
 }
 
 .photo-carousel__slide {
