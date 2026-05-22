@@ -31,6 +31,7 @@ declare namespace YT {
     constructor(elementId: string, options: PlayerOptions);
     playVideo(): void;
     pauseVideo(): void;
+    seekTo(seconds: number, allowSeekAhead: boolean): void;
     setVolume(volume: number): void;
   }
 }

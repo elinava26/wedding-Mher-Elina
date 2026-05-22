@@ -1,4 +1,4 @@
-import { BACKGROUND_MUSIC_VIDEO_ID } from './constants';
+import { BACKGROUND_MUSIC_START_SECONDS, BACKGROUND_MUSIC_VIDEO_ID } from './constants';
 
 const MUSIC_VOLUME = 40;
 
@@ -92,6 +92,7 @@ export function initAudio(): void {
         rel: 0,
         loop: 1,
         playlist: BACKGROUND_MUSIC_VIDEO_ID,
+        start: BACKGROUND_MUSIC_START_SECONDS,
       },
       events: {
         onReady: () => {
@@ -103,12 +104,14 @@ export function initAudio(): void {
           }
         },
         onStateChange: (event: YT.OnStateChangeEvent) => {
+          if (event.data === YT.PlayerState.ENDED) {
+            player?.seekTo(BACKGROUND_MUSIC_START_SECONDS, true);
+            player?.playVideo();
+            return;
+          }
           if (event.data === YT.PlayerState.PLAYING) {
             showStop();
-          } else if (
-            event.data === YT.PlayerState.PAUSED ||
-            event.data === YT.PlayerState.ENDED
-          ) {
+          } else if (event.data === YT.PlayerState.PAUSED) {
             showPlay();
           }
         },
